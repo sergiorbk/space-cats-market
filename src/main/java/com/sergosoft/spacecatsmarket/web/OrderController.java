@@ -1,6 +1,5 @@
 package com.sergosoft.spacecatsmarket.web;
 
-
 import com.sergosoft.spacecatsmarket.domain.order.OrderContext;
 import com.sergosoft.spacecatsmarket.dto.order.PlaceOrderRequestDto;
 import com.sergosoft.spacecatsmarket.dto.order.PlaceOrderResponseDto;
@@ -32,6 +31,7 @@ public class OrderController {
         @PathVariable("customerReference") String customerReference,
         @PathVariable("cartId") String cartId,
         @RequestBody @Valid PlaceOrderRequestDto placeOrderDto) {
+
         log.info("Placing the order for cart with id : {}", cartId);
         OrderContext context = orderDtoMapper.toOrderContext(cartId, customerReference, placeOrderDto);
         return ResponseEntity.ok(orderDtoMapper.toPlaceOrderResponseDto(orderService.placeOrder(context)));
