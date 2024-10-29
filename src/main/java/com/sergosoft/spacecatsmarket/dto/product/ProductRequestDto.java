@@ -6,13 +6,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.URL;
 
 import lombok.extern.jackson.Jacksonized;
 import lombok.Builder;
 import lombok.Value;
-
-import com.sergosoft.spacecatsmarket.domain.product.ProductCategory;
 
 @Value
 @Builder
@@ -20,17 +19,12 @@ import com.sergosoft.spacecatsmarket.domain.product.ProductCategory;
 public class ProductRequestDto {
 
     /**
-     * Unique identifier for the product.
-     */
-    Long id;
-
-    /**
-     * List of categories related to the product.
-     * Must contain at least one category.
+     * List of ids of categories related to the product.
+     * Must contain at least one category id.
      */
     @NotNull(message = "Related categories list is mandatory.")
-    @NotEmpty(message = "Related categories list must contain at least 1 category.")
-    List<ProductCategory> relatedCategories;
+    @NotEmpty(message = "Related categories list must contain at least 1 category id.")
+    List<@Positive(message = "Related category id must be a positive number.") Integer> relatedCategoriesIds;
 
     /**
      * Title of the product.
